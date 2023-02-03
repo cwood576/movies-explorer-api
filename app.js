@@ -45,13 +45,13 @@ app.use(cookieParser());
 
 app.use(requestLogger);
 
-app.post('/signin/', loginValidator, login);
+app.post('/api/signin', loginValidator, login);
 
-app.post('/signup', createUserValidator, createUser);
+app.post('/api/signup', createUserValidator, createUser);
 
 app.use(require('./middlewares/auth'));
 
-app.use('/', require('./routes/index'));
+app.use('/api', require('./routes/index'));
 
 app.use(errors());
 
