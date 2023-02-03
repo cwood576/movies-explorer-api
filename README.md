@@ -15,3 +15,7 @@
 ## Ссылка на репозиторий 
 
 https://github.com/cwood576/movies-explorer-api
+
+## Ссылка на api 
+
+https://cw576.nomoredomainsclub.ru/api

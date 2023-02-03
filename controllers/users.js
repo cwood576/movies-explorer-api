@@ -80,8 +80,8 @@ module.exports.login = async (req, res, next) => {
       return res
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7,
-          // sameSite: 'none',
-          // secure: true,
+          sameSite: 'none',
+          secure: true,
           httpOnly: true,
         })
         .send({ message: successAuth });
