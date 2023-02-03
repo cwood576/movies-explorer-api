@@ -55,7 +55,7 @@ app.use('/api', require('./routes/index'));
 
 app.use(errors());
 
-app.use('*', (req, res, next) => {
+app.use('/api/*', (req, res, next) => {
   const err = new NotFoundError(pageNotFound);
   next(err);
 });
