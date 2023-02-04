@@ -33,26 +33,23 @@ module.exports.createUser = async (req, res, next) => {
   } = req.body;
   try {
     const hash = await bcrypt.hash(password, 10);
-    try {
-      const user = await Users.create({
-        name,
-        password: hash,
-        email,
-      });
-      res.send({
-        data: {
-          name: user.name,
-          email: user.email,
-        },
-      });
-    } catch (e) {
-      if (e.code === 11000) {
-        const err = new AlreadyExistError(alreadyExistEmail);
-        next(err);
-        return true;
-      }
-    }
+    const user = await Users.create({
+      name,
+      password: hash,
+      email,
+    });
+    res.send({
+      data: {
+        name: user.name,
+        email: user.email,
+      },
+    });
   } catch (e) {
+    if (e.code === 11000) {
+      const err = new AlreadyExistError(alreadyExistEmail);
+      next(err);
+      return true;
+    }
     const err = new DefaultError(defaultMessage);
     next(err);
   }
@@ -120,15 +117,15 @@ module.exports.updateProfile = async (req, res, next) => {
       return true;
     }
     return res.send({ data: user });
-  } catch (err) {
-    next(err);
+  } catch (e) {
+    if (e.code === 11000) {
+      const err = new AlreadyExistError(alreadyExistEmail);
+      next(err);
+      return true;
+    }
+    next(e);
   }
   return true;
 };
 
-module.exports.resetCookie = (req, res, next) => res.cookie('jwt', '', {
-  maxAge: 0,
-  sameSite: 'none',
-  secure: true,
-  httpOnly: true,
-}).send({ message: successLogout });
+module.exports.resetCookie = (req, res, next) => res.clearCookie('jwt').send({ message: successLogout });

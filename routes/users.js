@@ -8,7 +8,7 @@ const {
 } = require('../controllers/users');
 
 router.get('/users/me', getCurrentUser);
-router.get('/exit', resetCookie);
+router.get('/signout', resetCookie);
 router.patch('/users/me', patchUserValidator, updateProfile);
 
 module.exports = router;

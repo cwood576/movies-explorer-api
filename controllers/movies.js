@@ -34,6 +34,7 @@ module.exports.postMovie = async (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
+    movieId,
   } = req.body;
   try {
     const movie = await Movies.create({
@@ -47,6 +48,7 @@ module.exports.postMovie = async (req, res, next) => {
       nameRU,
       nameEN,
       thumbnail,
+      movieId,
       owner: req.user.id,
     });
     res.send({ data: movie });
@@ -65,12 +67,8 @@ module.exports.deleteMovie = async (req, res, next) => {
       return;
     }
     if (movie.owner.equals(req.user.id)) {
-      try {
-        const item = await Movies.findByIdAndRemove(req.params.id);
-        res.send({ data: item });
-      } catch (err) {
-        next(err);
-      }
+      const item = await Movies.findByIdAndRemove(req.params.id);
+      res.send({ data: item });
     } else {
       const err = new AccessError(permissionDenied);
       next(err);

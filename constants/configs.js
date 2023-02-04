@@ -9,7 +9,10 @@ const corsConfig = {
   methods: 'GET,HEAD,PATCH,POST,DELETE',
 };
 const mongoConfig = {
-  useNewUrlParser: true,
+  options: {
+    useNewUrlParser: true,
+  },
+  devServer: 'mongodb://localhost:27017/bitfilmsdbdev',
 };
 
 module.exports = { helmetConfig, corsConfig, mongoConfig };

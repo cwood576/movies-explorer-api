@@ -1,28 +1,26 @@
 const { celebrate, Joi } = require('celebrate');
 
 const config = {
-  shortString: Joi.string().trim().min(2).max(30)
-    .required(),
-  longString: Joi.string().trim().min(2).max(150)
-    .required(),
+  string: Joi.string().trim().required(),
   url: Joi.string().trim().min(2).required()
     .pattern(/https?:\/\/(www\.)?([\w-])+\.(\w)+\/?[\w\-_~:/?[\]@!$&'()*+,;=]*/),
   email: Joi.string().trim().required().email({ minDomainSegments: 2 }),
-  password: Joi.string().trim().min(8).required(),
+  password: Joi.string().trim().required(),
 };
 
 const postMovieValidator = celebrate({
   body: Joi.object().keys({
-    country: config.shortString,
-    director: config.shortString,
-    duration: Joi.number().integer().required(),
-    year: Joi.string().trim().length(4).required(),
-    description: config.longString,
+    country: config.string,
+    director: config.string,
+    duration: Joi.number().required(),
+    year: config.string,
+    description: config.string,
     image: config.url,
     trailerLink: config.url,
     thumbnail: config.url,
-    nameRU: config.shortString.pattern(/^[а-яА-ЯЁ\-0-9\s]+$/),
-    nameEN: config.shortString.pattern(/^[\w\s]+$/),
+    nameRU: config.string,
+    nameEN: config.string,
+    movieId: Joi.number().integer().required(),
   }),
 });
 const deleteMovieValidator = celebrate({
@@ -33,13 +31,13 @@ const deleteMovieValidator = celebrate({
 
 const patchUserValidator = celebrate({
   body: Joi.object().keys({
-    name: config.shortString,
+    name: config.string.min(2).max(30),
     email: config.email,
   }),
 });
 const createUserValidator = celebrate({
   body: Joi.object().keys({
-    name: config.shortString,
+    name: config.string.min(2).max(30),
     password: config.password,
     email: config.email,
   }),

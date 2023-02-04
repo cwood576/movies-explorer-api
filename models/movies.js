@@ -4,14 +4,10 @@ const validator = require('validator');
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    minlength: 2,
-    maxlength: 30,
     required: true,
   },
   director: {
     type: String,
-    minlength: 2,
-    maxlength: 30,
     required: true,
   },
   duration: {
@@ -20,18 +16,14 @@ const movieSchema = new mongoose.Schema({
   },
   year: {
     type: String,
-    length: 4,
     required: true,
   },
   description: {
     type: String,
-    minlength: 2,
-    maxlength: 150,
     required: true,
   },
   image: {
     type: String,
-    minlength: 2,
     validate: {
       validator(v) {
         return validator.isURL(v);
@@ -41,7 +33,6 @@ const movieSchema = new mongoose.Schema({
   },
   trailerLink: {
     type: String,
-    minlength: 2,
     validate: {
       validator(v) {
         return validator.isURL(v);
@@ -51,7 +42,6 @@ const movieSchema = new mongoose.Schema({
   },
   thumbnail: {
     type: String,
-    minlength: 2,
     validate: {
       validator(v) {
         return validator.isURL(v);
@@ -66,28 +56,18 @@ const movieSchema = new mongoose.Schema({
   },
   nameRU: {
     type: String,
-    minlength: 2,
-    maxlength: 30,
-    validate: {
-      validator(v) {
-        return validator.isAlphanumeric(v, 'ru-RU', {
-          ignore: /[-\s]*/g,
-        });
-      },
-    },
     required: true,
+  },
+  movieId: {
+    type: Number,
+    required: true,
+    validate: {
+      validator: Number.isInteger,
+      message: 'MovieID not an integer',
+    },
   },
   nameEN: {
     type: String,
-    minlength: 2,
-    maxlength: 30,
-    validate: {
-      validator(v) {
-        return validator.isAlphanumeric(v, 'en-US', {
-          ignore: /[-\s]*/g,
-        });
-      },
-    },
     required: true,
   },
 });
