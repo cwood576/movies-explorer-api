@@ -32,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use('/api', require('./routes/index'));
+app.use('/', require('./routes/index'));
 
 app.use(errorLogger);
 
