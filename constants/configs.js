@@ -5,7 +5,7 @@ const helmetConfig = {
 };
 const corsConfig = {
   credentials: true,
-  origin: 'https://cw576.nomoredomainsclub.ru http://localhost:3000',
+  origin: ['https://cw576.nomoredomainsclub.ru', 'http://localhost:3000'],
   methods: 'GET,HEAD,PATCH,POST,DELETE',
 };
 const mongoConfig = {
