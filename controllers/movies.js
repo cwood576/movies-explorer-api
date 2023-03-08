@@ -60,7 +60,7 @@ module.exports.postMovie = async (req, res, next) => {
 
 module.exports.deleteMovie = async (req, res, next) => {
   try {
-    const movie = await Movies.find({ movieId: req.params.id });
+    const movie = await Movies.findOne({ movieId: req.params.id });
     if (movie === null) {
       const err = new NotFoundError(filmNotFound);
       next(err);
