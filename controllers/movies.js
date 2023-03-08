@@ -60,14 +60,14 @@ module.exports.postMovie = async (req, res, next) => {
 
 module.exports.deleteMovie = async (req, res, next) => {
   try {
-    const movie = await Movies.findById(req.params.id);
+    const movie = await Movies.find({ movieId: req.params.id });
     if (movie === null) {
       const err = new NotFoundError(filmNotFound);
       next(err);
       return;
     }
     if (movie.owner.equals(req.user.id)) {
-      const item = await Movies.findByIdAndRemove(req.params.id);
+      const item = await Movies.findOneAndDelete({ movieId: req.params.id });
       res.send({ data: item });
     } else {
       const err = new AccessError(permissionDenied);
