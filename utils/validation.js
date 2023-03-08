@@ -25,7 +25,7 @@ const postMovieValidator = celebrate({
 });
 const deleteMovieValidator = celebrate({
   params: Joi.object().keys({
-    id: Joi.string().length(24).hex().required(),
+    id: Joi.string().required(),
   }),
 });
 
